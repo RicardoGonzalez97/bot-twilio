@@ -194,7 +194,7 @@ const flowConsultas = addKeyword([""]).addAction({ capture: true }, manejarMensa
  
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowBienvenido,flowConsultas]);
+    const adapterFlow = createFlow([flowSi]);
 
    
     const adapterProvider = createProvider(TwilioProvider, {
