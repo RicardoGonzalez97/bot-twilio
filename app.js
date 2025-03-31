@@ -166,16 +166,6 @@ const flowSi = addKeyword(["Si"]).addAnswer(
  
 );
 
-const flowMensajepopo = addKeyword('popo')
-    .addAnswer(
-        'Aqui va un mensaje',
-        {
-            capture: true,
-        },
-        async (ctx, {provider}) => {
-            await provider.sendtext(ctx.from, 'ohh ya veo okei')
-              }
-    )
 
 async function obtenerMiNumero(provider) {
     setTimeout(async () => {
@@ -206,7 +196,7 @@ const flowConsultas = addKeyword([""]).addAction({ capture: true }, manejarMensa
  
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowMensajepopo]);
+    const adapterFlow = createFlow([flowBienvenido,flowConsultas]);
 
    
     const adapterProvider = createProvider(TwilioProvider, {
