@@ -165,6 +165,20 @@ const flowSi = addKeyword(["Si"]).addAnswer(
  
 );
 
+const flowNo = addKeyword('jelou')
+    .addAnswer(
+        'Aqui va un mensaje',
+        {
+            capture: true,
+        },
+        async (ctx, {provider}) => {
+            await provider.sendtext(ctx.from, 'mensaje')
+            //==> ctx.from puede ser reemplazado por un número de teléfono
+            //ej: 59170000000, donde el 591 es el código de país y el 70000000 es el número de teléfono
+        }
+    )
+
+
 async function obtenerMiNumero(provider) {
     setTimeout(async () => {
         try {
@@ -194,7 +208,7 @@ const flowConsultas = addKeyword([""]).addAction({ capture: true }, manejarMensa
  
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowSi]);
+    const adapterFlow = createFlow([flowNo]);
 
    
     const adapterProvider = createProvider(TwilioProvider, {
