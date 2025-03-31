@@ -133,6 +133,7 @@ async function manejarMensaje(ctx, ctxFn) {
                 sendSystemMessage("Ahora sabemos que NO esta disponible, manda un mensaje al usuario que le explique que no esta disponible esa fecha, que por favor te indique otra. TIENES QUE VOLVER A HACER TODO EL FLUJO de los 7 pasos que te di al principio.");
        
             }
+            console.log("SE VA A MANDAR EL SIGUIENTE MENSAJE",respuesta )
         return await ctxFn.flowDynamic(respuesta);
         }
     } else {
@@ -148,7 +149,7 @@ async function manejarMensaje(ctx, ctxFn) {
             sendSystemMessage("El usuario acepto la confirmacion, pregunta su nombre para poder agendar la cita a su nombre.");
             userFlags.set(userId, { flagAvailable: true, flagConfirm: true });
         }
-
+        console.log("SE VA A MANDAR EL SIGUIENTE MENSAJE",answerClean )
         return await ctxFn.flowDynamic(answerClean);
      }
 }
@@ -164,6 +165,17 @@ const flowSi = addKeyword(["Si"]).addAnswer(
     { capture: true },
  
 );
+
+const flowMensajepopo = addKeyword('popo')
+    .addAnswer(
+        'Aqui va un mensaje',
+        {
+            capture: true,
+        },
+        async (ctx, {provider}) => {
+            await provider.sendtext(ctx.from, 'ohh ya veo okei')
+              }
+    )
 
 async function obtenerMiNumero(provider) {
     setTimeout(async () => {
@@ -194,7 +206,7 @@ const flowConsultas = addKeyword([""]).addAction({ capture: true }, manejarMensa
  
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowBienvenido,flowConsultas]);
+    const adapterFlow = createFlow([flowMensajepopo]);
 
    
     const adapterProvider = createProvider(TwilioProvider, {
